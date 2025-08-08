@@ -1,3 +1,4 @@
+// backend/index.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -5,9 +6,9 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
-const authRoutes = require('./auth');
-const transactionRoutes = require('./transactions');
-const userRoutes = require('./users');
+const authRoutes = require('./api/auth');
+const transactionRoutes = require('./api/transactions');
+const userRoutes = require('./api/users');
 
 const app = express();
 
@@ -20,8 +21,8 @@ app.use(cors({
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100
 });
 app.use(limiter);
 
@@ -45,15 +46,15 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'Finance Tracker API', status: 'running' });
+});
+
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!' });
-});
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
 });
 
 module.exports = app;

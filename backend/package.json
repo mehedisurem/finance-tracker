@@ -2,10 +2,10 @@
   "name": "finance-tracker-api",
   "version": "1.0.0",
   "description": "Finance Tracker Backend API",
-  "main": "api/index.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node api/index.js",
-    "dev": "nodemon api/index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
