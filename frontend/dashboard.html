@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Tracker - Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dashboard-page">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">💰 Finance Tracker</div>
+            <div class="navbar-user">
+                <span class="user-info">Welcome, <span id="userName">User</span></span>
+                <button id="logoutBtn" class="btn btn-outline">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Dashboard Summary Cards -->
+        <div class="dashboard-grid">
+            <div class="dashboard-card income">
+                <div class="card-header">
+                    <div class="card-title">Total Income</div>
+                    <div class="card-icon">💰</div>
+                </div>
+                <div class="card-amount" id="totalIncome">$0.00</div>
+                <div class="card-subtitle">This month</div>
+            </div>
+            
+            <div class="dashboard-card expense">
+                <div class="card-header">
+                    <div class="card-title">Total Expenses</div>
+                    <div class="card-icon">💸</div>
+                </div>
+                <div class="card-amount" id="totalExpenses">$0.00</div>
+                <div class="card-subtitle">This month</div>
+            </div>
+            
+            <div class="dashboard-card balance">
+                <div class="card-header">
+                    <div class="card-title">Net Balance</div>
+                    <div class="card-icon">📊</div>
+                </div>
+                <div class="card-amount" id="netBalance">$0.00</div>
+                <div class="card-subtitle">Current</div>
+            </div>
+            
+            <div class="dashboard-card budget">
+                <div class="card-header">
+                    <div class="card-title">Budget Remaining</div>
+                    <div class="card-icon">🎯</div>
+                </div>
+                <div class="card-amount" id="budgetRemaining">$0.00</div>
+                <div class="card-subtitle">This month</div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="main-content">
+            <!-- Transactions Section -->
+            <div class="content-card">
+                <div class="content-header">
+                    💳 Add New Transaction
+                </div>
+                
+                <div class="content-body">
+                    <form id="transactionForm">
+                        <div class="transaction-form">
+                            <div class="form-group">
+                                <label for="transactionType">Type</label>
+                                <select id="transactionType" required>
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="amount">Amount ($)</label>
+                                <input type="number" id="amount" step="0.01" min="0.01" placeholder="0.00" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" id="description" placeholder="Enter description" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category" required>
+                                    <option value="">Select category</option>
+                                    <option value="Housing">🏠 Housing</option>
+                                    <option value="Utilities">⚡ Utilities</option>
+                                    <option value="Food">🍔 Food</option>
+                                    <option value="Transport">🚗 Transport</option>
+                                    <option value="Insurance">🛡️ Insurance</option>
+                                    <option value="Healthcare">🏥 Healthcare</option>
+                                    <option value="Entertainment">🎬 Entertainment</option>
+                                    <option value="Shopping">🛒 Shopping</option>
+                                    <option value="Education">📚 Education</option>
+                                    <option value="Salary">💼 Salary</option>
+                                    <option value="Freelance">💻 Freelance</option>
+                                    <option value="Investment">📈 Investment</option>
+                                    <option value="Other">📋 Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="paymentMethod">Payment Method</label>
+                                <select id="paymentMethod" required>
+                                    <option value="">Select method</option>
+                                    <option value="Credit Card">💳 Credit Card</option>
+                                    <option value="Debit Card">💳 Debit Card</option>
+                                    <option value="Cash">💵 Cash</option>
+                                    <option value="Bank Transfer">🏦 Bank Transfer</option>
+                                    <option value="Digital Wallet">📱 Digital Wallet</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="transactionDate">Date</label>
+                                <input type="date" id="transactionDate" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                ➕ Add Transaction
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="clearForm()">
+                                🔄 Clear Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Search and Filters -->
+                <div class="search-filters">
+                    <div class="search-grid">
+                        <div class="form-group search-input">
+                            <input type="text" id="searchInput" placeholder="Search transactions...">
+                        </div>
+                        <div class="form-group">
+                            <select id="filterCategory">
+                                <option value="">All Categories</option>
+                                <option value="Housing">Housing</option>
+                                <option value="Utilities">Utilities</option>
+                                <option value="Food">Food</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Insurance">Insurance</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Shopping">Shopping</option>
+                                <option value="Education">Education</option>
+                                <option value="Salary">Salary</option>
+                                <option value="Freelance">Freelance</option>
+                                <option value="Investment">Investment</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="filterType">
+                                <option value="">All Types</option>
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Transactions List -->
+                <div class="content-header">
+                    📋 Recent Transactions
+                    <div style="margin-left: auto; display: flex; gap: 12px;">
+                        <button class="btn btn-sm btn-outline" onclick="exportTransactions()">
+                            📤 Export
+                        </button>
+                        <label for="importFile" class="btn btn-sm btn-outline" style="cursor: pointer;">
+                            📥 Import
+                        </label>
+                        <input type="file" id="importFile" accept=".json" style="display: none;">
+                    </div>
+                </div>
+                
+                <div class="content-body">
+                    <div class="transaction-list" id="transactionsList">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📝</div>
+                            <h3>No transactions yet</h3>
+                            <p>Add your first transaction above to get started!</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div id="pagination" class="text-center mt-6" style="display: none;">
+                        <button id="prevPage" class="btn btn-outline btn-sm">← Previous</button>
+                        <span id="pageInfo" class="mx-4"></span>
+                        <button id="nextPage" class="btn btn-outline btn-sm">Next →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Quick Actions -->
+                <div class="sidebar-card">
+                    <div class="sidebar-header">
+                        ⚡ Quick Actions
+                    </div>
+                    <div class="sidebar-body">
+                        <button class="btn btn-primary mb-4" onclick="setBudget()" style="width: 100%;">
+                            💰 Set Monthly Budget
+                        </button>
+                        <button class="btn btn-warning mb-4" onclick="viewReports()" style="width: 100%;">
+                            📊 View Reports
+                        </button>
+                        <button class="btn btn-info" onclick="exportAllData()" style="width: 100%;">
+                            💾 Export All Data
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Monthly Stats -->
+                <div class="sidebar-card">
+                    <div class="sidebar-header">
+                        📈 Monthly Overview
+                    </div>
+                    <div class="sidebar-body">
+                        <div class="stat-item">
+                            <span class="stat-label">Transactions</span>
+                            <span class="stat-value" id="transactionCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Avg. Expense</span>
+                            <span class="stat-value" id="avgExpense">$0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Largest Expense</span>
+                            <span class="stat-value" id="largestExpense">$0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Daily Average</span>
+                            <span class="stat-value" id="dailyAverage">$0.00</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Savings Rate</span>
+                            <span class="stat-value" id="savingsRate">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Categories -->
+                <div class="sidebar-card">
+                    <div class="sidebar-header">
+                        🏷️ Top Categories
+                    </div>
+                    <div class="sidebar-body" id="categoryBreakdown">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📊</div>
+                            <p>No category data yet</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Transaction Modal -->
+    <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Transaction</h3>
+                <button class="modal-close" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editTransactionForm">
+                    <input type="hidden" id="editTransactionId">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="editType">Type</label>
+                            <select id="editType" required>
+                                <option value="expense">Expense</option>
+                                <option value="income">Income</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editAmount">Amount ($)</label>
+                            <input type="number" id="editAmount" step="0.01" min="0.01" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDescription">Description</label>
+                        <input type="text" id="editDescription" required>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="editCategory">Category</label>
+                            <select id="editCategory" required>
+                                <option value="Housing">🏠 Housing</option>
+                                <option value="Utilities">⚡ Utilities</option>
+                                <option value="Food">🍔 Food</option>
+                                <option value="Transport">🚗 Transport</option>
+                                <option value="Insurance">🛡️ Insurance</option>
+                                <option value="Healthcare">🏥 Healthcare</option>
+                                <option value="Entertainment">🎬 Entertainment</option>
+                                <option value="Shopping">🛒 Shopping</option>
+                                <option value="Education">📚 Education</option>
+                                <option value="Salary">💼 Salary</option>
+                                <option value="Freelance">💻 Freelance</option>
+                                <option value="Investment">📈 Investment</option>
+                                <option value="Other">📋 Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editPaymentMethod">Payment Method</label>
+                            <select id="editPaymentMethod" required>
+                                <option value="Credit Card">💳 Credit Card</option>
+                                <option value="Debit Card">💳 Debit Card</option>
+                                <option value="Cash">💵 Cash</option>
+                                <option value="Bank Transfer">🏦 Bank Transfer</option>
+                                <option value="Digital Wallet">📱 Digital Wallet</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editDate">Date</label>
+                        <input type="date" id="editDate" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveEditTransaction()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
