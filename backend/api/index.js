@@ -7,14 +7,14 @@ require('dotenv').config();
 
 const authRoutes = require('./auth');
 const transactionRoutes = require('./transactions');
-const userRoutes = require('./User');
+const userRoutes = require('./users');
 
 const app = express();
 
 // Security middleware
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://yourusername.github.io',
+  origin: process.env.FRONTEND_URL || 'https://mehedisurem.github.io',
   credentials: true
 }));
 
