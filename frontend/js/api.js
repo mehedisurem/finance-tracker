@@ -3,7 +3,7 @@
 class APIClient {
     constructor() {
         // Change this to your deployed Vercel backend URL
-        this.baseURL = 'https://your-backend-name.vercel.app/api';
+        this.baseURL = 'https://finance-tracker-omega-mauve.vercel.app/api';
         this.token = localStorage.getItem('authToken');
     }
 
@@ -387,5 +387,4 @@ document.addEventListener('DOMContentLoaded', () => {
         // Authenticated and on auth page - redirect to dashboard
         window.location.href = '/dashboard.html';
     }
-});/ *   U p d a t e d   0 8 / 0 9 / 2 0 2 5   0 1 : 0 5 : 1 1   * /  
- 
+});
